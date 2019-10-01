@@ -8,9 +8,21 @@ find_package(lib_manager)
 lib_defaults()
 define_module_info()
 
-find_package(OpenSceneGraph REQUIRED osgManipulator osgViewer osgFX osgShadow osgParticle osgTerrain osgDB osgGA osgWidget osgText osgUtil osgQt)
+pkg_check_modules(OSGQT REQUIRED openscenegraph-osgQt5)
+
+if(OSGQT_FOUND)
+  include_directories(${OSGQT_INCLUDE_DIRS})
+  link_directories(${OSGQT_LIBRARY_DIRS})
+  find_package(OpenSceneGraph REQUIRED osgManipulator osgViewer osgFX osgShadow osgParticle osgTerrain osgDB osgGA osgWidget osgText osgUtil)
+else()
+  find_package(OpenSceneGraph REQUIRED osgManipulator osgViewer osgFX osgShadow osgParticle osgTerrain osgDB osgGA osgWidget osgText osgUtil osgQt)
+endif()
+
 include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
 link_directories(${OPENSCENEGRAPH_LIBRARY_DIRS})
+
+
+
 
 set (QT_USE_QTOPENGL TRUE)
 setup_qt()
@@ -65,6 +77,7 @@ target_link_libraries(${PROJECT_NAME}
                       ${PKGCONFIG_LIBRARIES}
                       ${QT_LIBRARIES}
                       ${OPENSCENEGRAPH_LIBRARIES}
+                      ${OSGQT_LIBRARIES}
 )
 
 if(WIN32)
