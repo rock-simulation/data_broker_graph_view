@@ -8,7 +8,7 @@ find_package(lib_manager)
 lib_defaults()
 define_module_info()
 
-pkg_check_modules(OSGQT REQUIRED openscenegraph-osgQt5)
+pkg_check_modules(OSGQT openscenegraph-osgQt5)
 
 if(OSGQT_FOUND)
   include_directories(${OSGQT_INCLUDE_DIRS})
