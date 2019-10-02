@@ -394,6 +394,9 @@ namespace data_broker_graph_view {
     fromGroup = s[0];
     fromPackage = "";
     for(size_t i=1; i<s.size(); ++i) {
+      if(fromPackage.size() > 0) {
+        fromPackage.append(":");
+      }
       fromPackage.append(s[i]);
     }
     fromItem << edgeConfig["fromNodeOutput"];
@@ -402,6 +405,9 @@ namespace data_broker_graph_view {
     toGroup = s[0];
     toPackage = "";
     for(size_t i=1; i<s.size(); ++i) {
+      if(toPackage.size() > 0) {
+        toPackage.append(":");
+      }
       toPackage.append(s[i]);
     }
     toItem << edgeConfig["toNodeInput"];
