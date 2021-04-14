@@ -154,7 +154,9 @@ namespace data_broker_graph_view {
       newNodes.clear();
     }
     connectionMutex.unlock();
-    viewer->frame();
+    if(!isHidden()) {
+      viewer->frame();
+    }
   }
 
   void GraphGui::updatePackages() {
