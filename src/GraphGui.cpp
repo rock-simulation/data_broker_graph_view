@@ -32,10 +32,13 @@ namespace data_broker_graph_view {
     ignoreRemoveEdge = false;
   
     view = new osg_graph_viz::View();
-    view->setResourcesPath(cfg->getOrCreateProperty("Preferences",
-                                                    "resources_path",
-                                                    ".").sValue+
-                           "/osg_graph_viz/");
+    std::string rpath = cfg->getOrCreateProperty("Preferences",
+                                                 "resources_path",
+                                                 "").sValue;
+    if(rpath != "")
+    {
+        view->setResourcesPath(rpath+"/osg_graph_viz/");
+    }
     view->init(16, 16, 1.5);
     view->setLineMode(osg_graph_viz::SMOOTH_LINE_MODE);
     view->setUpdateInterface(this);

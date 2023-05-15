@@ -29,9 +29,11 @@ namespace data_broker_graph_view {
 
     if(cfg) {
       cfgPropertyStruct path;
-      path = cfg->getOrCreateProperty("Preferences", "resources_path", rPath);
-      rPath = path.sValue;
-
+      path = cfg->getOrCreateProperty("Preferences", "resources_path", "");
+      if(path.sValue != "")
+      {
+          rPath = path.sValue;
+      }
       path = cfg->getOrCreateProperty("Config", "config_path", std::string("."));
       configPath = path.sValue;
     } else {
