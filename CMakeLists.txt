@@ -8,7 +8,14 @@ find_package(lib_manager)
 lib_defaults()
 define_module_info()
 
-pkg_check_modules(OSGQT openscenegraph-osgQt5)
+set (QT_USE_QTOPENGL TRUE)
+setup_qt()
+
+if(USE_QT5)
+    pkg_check_modules(OSGQT openscenegraph-osgQt5)
+else(USE_QT5)
+    pkg_check_modules(OSGQT openscenegraph-osgQt)
+endif(USE_QT5)
 
 if(OSGQT_FOUND)
   include_directories(${OSGQT_INCLUDE_DIRS})
@@ -22,10 +29,6 @@ include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
 link_directories(${OPENSCENEGRAPH_LIBRARY_DIRS})
 
 
-
-
-set (QT_USE_QTOPENGL TRUE)
-setup_qt()
 
 pkg_check_modules(PKGCONFIG REQUIRED
         lib_manager
